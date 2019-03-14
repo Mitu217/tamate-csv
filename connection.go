@@ -13,6 +13,13 @@ type csvConn struct {
 	columnRowIndex int
 }
 
+func newCSVConn(rootPath string, columnRowIndex int) *csvConn {
+	return &csvConn{
+		rootPath:       rootPath,
+		columnRowIndex: columnRowIndex,
+	}
+}
+
 func (c *csvConn) Close() error {
 	return nil
 }

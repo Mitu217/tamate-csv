@@ -11,12 +11,8 @@ const driverName = "csv"
 
 type csvDriver struct{}
 
-func (ds *csvDriver) Open(ctx context.Context, dsn string) (driver.Conn, error) {
-	cc := &csvConn{
-		rootPath:       dsn,
-		columnRowIndex: 0, // TODO: Get from dsn
-	}
-	return cc, nil
+func (cd *csvDriver) Open(ctx context.Context, dsn string) (driver.Conn, error) {
+	return newCSVConn(dsn, 0), nil
 }
 
 func init() {
