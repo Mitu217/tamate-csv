@@ -18,10 +18,11 @@ func Test_GetSchema(t *testing.T) {
 			(id),name,age
 		`
 	)
-	err := createFile(rootDir, fileName, testData)
+	path := joinPath(rootDir, fileName)
+	err := createFile(path, testData)
 	assert.NoError(t, err)
 	defer func() {
-		cerr := deleteFile(rootDir, fileName)
+		cerr := deleteFile(path)
 		assert.NoError(t, cerr)
 	}()
 
@@ -57,10 +58,11 @@ func Test_SetSchema(t *testing.T) {
 			(id),name,from
 		`
 	)
-	err := createFile(rootDir, fileName, beforeData)
+	path := joinPath(rootDir, fileName)
+	err := createFile(path, beforeData)
 	assert.NoError(t, err)
 	defer func() {
-		cerr := deleteFile(rootDir, fileName)
+		cerr := deleteFile(path)
 		assert.NoError(t, cerr)
 	}()
 
@@ -76,10 +78,11 @@ func Test_GetRows(t *testing.T) {
 			1,hana,16
 		`
 	)
-	err := createFile(rootDir, fileName, testData)
+	path := joinPath(rootDir, fileName)
+	err := createFile(path, testData)
 	assert.NoError(t, err)
 	defer func() {
-		cerr := deleteFile(rootDir, fileName)
+		cerr := deleteFile(path)
 		assert.NoError(t, cerr)
 	}()
 }
@@ -97,10 +100,11 @@ func Test_SetRows(t *testing.T) {
 			1,tamate,15
 		`
 	)
-	err := createFile(rootDir, fileName, beforeData)
+	path := joinPath(rootDir, fileName)
+	err := createFile(path, beforeData)
 	assert.NoError(t, err)
 	defer func() {
-		cerr := deleteFile(rootDir, fileName)
+		cerr := deleteFile(path)
 		assert.NoError(t, cerr)
 	}()
 

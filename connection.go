@@ -25,7 +25,8 @@ func (c *csvConn) Close() error {
 }
 
 func (c *csvConn) GetSchema(ctx context.Context, fileName string) (*driver.Schema, error) {
-	values, err := readFromFile(c.rootPath, fileName)
+	path := joinPath(c.rootPath, fileName)
+	values, err := readFromFile(path)
 	if err != nil {
 		return nil, err
 	}
@@ -60,12 +61,13 @@ func (c *csvConn) GetSchema(ctx context.Context, fileName string) (*driver.Schem
 	}, nil
 }
 
-func (c *csvConn) SetSchema(ctx context.Context, name string, schema *driver.Schema) error {
+func (c *csvConn) SetSchema(ctx context.Context, fileName string, schema *driver.Schema) error {
 	return fmt.Errorf("feature support")
 }
 
-func (c *csvConn) GetRows(ctx context.Context, name string) ([]*driver.Row, error) {
-	values, err := readFromFile(c.rootPath, name)
+func (c *csvConn) GetRows(ctx context.Context, fileName string) ([]*driver.Row, error) {
+	path := joinPath(c.rootPath, fileName)
+	values, err := readFromFile(path)
 	if err != nil {
 		return nil, err
 	}
@@ -103,6 +105,6 @@ func (c *csvConn) GetRows(ctx context.Context, name string) ([]*driver.Row, erro
 	return nil, nil
 }
 
-func (c *csvConn) SetRows(ctx context.Context, name string, rows []*driver.Row) error {
+func (c *csvConn) SetRows(ctx context.Context, fileName string, rows []*driver.Row) error {
 	return fmt.Errorf("feature support")
 }

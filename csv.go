@@ -9,22 +9,27 @@ import (
 	"strings"
 )
 
-func createFile(rootDir, fileName, data string) error {
+func joinPath(rootDir, fileName string) string {
+	if strings.Index(fileName, ".csv") > -1 {
+		return filepath.Join(rootDir, fileName)
+	}
+	return filepath.Join(rootDir, fileName+".csv")
+}
+
+func createFile(path, data string) error {
 	r := strings.NewReader(data)
 	values, err := read(r)
 	if err != nil {
 		return err
 	}
-	return writeToFile(rootDir, fileName, values)
+	return writeToFile(path, values)
 }
 
-func deleteFile(rootDir, fileName string) error {
-	path := joinPath(rootDir, fileName)
+func deleteFile(path string) error {
 	return os.Remove(path)
 }
 
-func readFromFile(rootDir, fileName string) ([][]string, error) {
-	path := joinPath(rootDir, fileName)
+func readFromFile(path string) ([][]string, error) {
 	r, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -53,8 +58,7 @@ func read(r io.Reader) ([][]string, error) {
 	return values, err
 }
 
-func writeToFile(rootDir, fileName string, values [][]string) error {
-	path := joinPath(rootDir, fileName)
+func writeToFile(path string, values [][]string) error {
 	w, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0600)
 	if err != nil {
 		return err
@@ -71,8 +75,4 @@ func writeToFile(rootDir, fileName string, values [][]string) error {
 
 func write(w io.Writer, values [][]string) error {
 	return csv.NewWriter(w).WriteAll(values)
-}
-
-func joinPath(rootDir, fileName string) string {
-	return filepath.Join(rootDir, fileName+".csv")
 }
