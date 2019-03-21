@@ -3,8 +3,8 @@ package csv
 import (
 	"context"
 
-	"github.com/Mitu217/tamate"
-	"github.com/Mitu217/tamate/driver"
+	"github.com/go-tamate/tamate"
+	"github.com/go-tamate/tamate/driver"
 )
 
 const driverName = "csv"
@@ -12,7 +12,7 @@ const driverName = "csv"
 type csvDriver struct{}
 
 func (cd *csvDriver) Open(ctx context.Context, dsn string) (driver.Conn, error) {
-	return newCSVConn(dsn, 0), nil
+	return newCSVConn(dsn, 0)
 }
 
 func init() {
